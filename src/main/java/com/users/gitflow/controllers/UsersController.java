@@ -4,17 +4,16 @@ package com.users.gitflow.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
 import com.users.gitflow.entities.Users;
 import com.users.gitflow.repositories.RequestUsers;
 import com.users.gitflow.repositories.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
@@ -33,6 +32,19 @@ public class UsersController {
         repository.save(newUsers);
         return ResponseEntity.ok().build();
 
+    }
+    @PutMapping
+    @Transactional
+    public ResponseEntity updateUsers(@RequestBody RequestUsers data){
+        Optional<Users> optionalUsers = repository.findById(data.id());
+        if (optionalUsers.isPresent()) {
+            Users users = optionalUsers.get();
+            users.setName(data.name());
+            users.setCpf(data.cpf());
+            return ResponseEntity.ok(users);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
