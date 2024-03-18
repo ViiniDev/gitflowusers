@@ -20,20 +20,20 @@ import java.util.Optional;
 public class UsersController {
     @Autowired
     private UserRepository repository;
-    @GetMapping
+    @GetMapping("/get")
     public ResponseEntity getAllUsers() {
         var allUsers = repository.findAll();
         return ResponseEntity.ok(allUsers);
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity registerUsers(@RequestBody  RequestUsers data){
         Users newUsers = new Users(data);
         repository.save(newUsers);
         return ResponseEntity.ok().build();
 
     }
-    @PutMapping
+    @PutMapping("/update")
     @Transactional
     public ResponseEntity updateUsers(@RequestBody RequestUsers data){
         Optional<Users> optionalUsers = repository.findById(data.id());
@@ -46,7 +46,7 @@ public class UsersController {
             return ResponseEntity.notFound().build();
         }
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @Transactional
     public ResponseEntity deleteUser(@PathVariable String id) {
         Optional<Users> optionalUsers = repository.findById(id);
