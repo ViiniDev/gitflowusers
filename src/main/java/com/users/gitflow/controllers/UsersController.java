@@ -47,6 +47,7 @@ public class UsersController {
         }
     }
     @DeleteMapping("/{id}")
+    @Transactional
     public ResponseEntity deleteUser(@PathVariable String id) {
         Optional<Users> optionalUsers = repository.findById(id);
         if (optionalUsers.isPresent()) {
