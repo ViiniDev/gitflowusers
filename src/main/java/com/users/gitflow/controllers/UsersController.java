@@ -3,19 +3,16 @@ package com.users.gitflow.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import com.users.gitflow.entities.Users;
 import com.users.gitflow.repositories.RequestUsers;
 import com.users.gitflow.repositories.UserRepository;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UsersController {
     @Autowired

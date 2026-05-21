@@ -1,17 +1,118 @@
-Projeto criado em java 
-Funções :
-      - Metodo POST
-      - Metodo GET
-      - Metodo PUT
-      - Metodo DELETE
-      Cada metodo é responsavel por criar, listar, atualizar e deletar um user com nome e cpf.
-Para Utilizar o repositorio é preciso : 
-  -  Ter jdk instalado na maquina 
-  -  Um framework com suporte para java(intellij ou vscode)
-  -  PGAdmin - para criar uma base de dados com o nome "users" como no projeto na pasta resourcers
-  -  Carregar todas as dependecias antes de inicializar o projeto
-  -  Executa-lo e testa-lo na porta criada pelo framework hibernate porta 8080
-  -  Seguindo o padrão localhost/8080/user
-  -  Inserir corretamente o 'name' e 'cpf' em json
-  -  e caso retorne '1' ou 400 está funcional, caso contrario reveja os passos.
-Projeto criado por Vinicius Dev - com colaboração de Matteuzzera para fins didaticos.
+# Git Flow Users
+
+API REST em Java com Spring Boot para gerenciamento de usuários. O projeto foi criado para praticar operações CRUD, persistência com PostgreSQL e organização de fluxo de desenvolvimento com Git/GitFlow.
+
+## Funcionalidades
+
+- Cadastro de usuários.
+- Listagem de usuários.
+- Atualização de nome e CPF.
+- Remoção de usuário por ID.
+- IDs gerados em formato UUID.
+- Persistência em banco PostgreSQL.
+
+## Tecnologias
+
+- Java 17
+- Spring Boot 3.2.3
+- Spring Web
+- Spring Data JPA
+- PostgreSQL
+- Lombok
+- Maven
+
+## Estrutura do Projeto
+
+```text
+src/main/java/com/users/gitflow
+├── controllers
+│   └── UsersController.java
+├── entities
+│   └── Users.java
+├── repositories
+│   ├── RequestUsers.java
+│   └── UserRepository.java
+└── UsersApplication.java
+```
+
+## Configuração do Banco
+
+Crie um banco PostgreSQL chamado `users`:
+
+```sql
+CREATE DATABASE users;
+```
+
+As configurações podem ser informadas por variáveis de ambiente:
+
+```bash
+DB_URL=jdbc:postgresql://localhost:5432/users
+DB_USER=postgres
+DB_PASSWORD=sua_senha
+```
+
+## Como Executar
+
+```bash
+./mvnw spring-boot:run
+```
+
+No Windows:
+
+```bash
+mvnw.cmd spring-boot:run
+```
+
+A aplicação ficará disponível em:
+
+```text
+http://localhost:8080
+```
+
+## Endpoints
+
+### Listar usuários
+
+```http
+GET /user/get
+```
+
+### Cadastrar usuário
+
+```http
+POST /user/register
+```
+
+```json
+{
+  "name": "Vinicius Arruda",
+  "cpf": 12345678900
+}
+```
+
+### Atualizar usuário
+
+```http
+PUT /user/update
+```
+
+```json
+{
+  "id": "uuid-do-usuario",
+  "name": "Vinicius Dev",
+  "cpf": 12345678900
+}
+```
+
+### Remover usuário
+
+```http
+DELETE /user/delete/{id}
+```
+
+## Melhorias Futuras
+
+- Padronizar rotas REST para `/users`.
+- Adicionar validações para CPF e nome.
+- Criar DTOs separados para criação, atualização e resposta.
+- Adicionar testes automatizados.
